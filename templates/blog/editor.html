@@ -25,18 +25,25 @@
     <div class="row">
         <div class="col-2"></div>
         <div class="col-10">
+            {% if article %}
+            <p class="text-center">Здесь вы можете отредактировать статью блога</p>
+            {% else %}
             <p class="text-center">Здесь вы можете добавить новую статью в блог</p>
+            {% endif %}
         </div>
     </div>
 
     <div class="row">
         <div class="col-4"></div>
-        <div class="col-5 ms-5 me-5 text-center">
+        <div class="col-5 ms-5 me-5">
             <div class="card px-3 py-3 w-100">
                 <form action="#" method="post" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+                        <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary">Отменить</a>
+                    </div>
                 </form>
             </div>
         </div>

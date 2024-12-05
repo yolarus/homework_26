@@ -43,7 +43,9 @@
                 <p>Дата создания карточки товара: {{ product.created_at | date:"d.m.Y" }}</p>
                 <p>Дата обновления карточки товара: {{ product.updated_at | date:"d.m.Y" }}</p>
                 <div class="w-100 container text-center">
-                    <button type="button" class="btn btn-outline-primary w-25">Купить</button>
+                    <a href="#" class="btn btn-outline-primary w-25 my-2" role="button">Купить</a>
+                    <a href="{% url 'apple_shop:product_update' product.pk %}" class="btn btn-outline-secondary w-25 my-2" role="button">Редактировать</a>
+                    <a href="{% url 'apple_shop:product_delete' product.pk %}" class="btn btn-outline-danger w-25 my-2" role="button">Удалить</a>
                 </div>
             </div>
         </div>

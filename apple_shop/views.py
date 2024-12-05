@@ -1,8 +1,9 @@
 from django.http import HttpResponse
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
+from .forms import ProductForm
 from .models import Category, ContactData, Product
 
 
@@ -100,6 +101,31 @@ class ProductCreateView(CreateView):
     Класс-представление страницы "Владелец"
     """
     model = Product
-    fields = ["name", "description", "price_per_unit", "category", "photo"]
+    form_class = ProductForm
     template_name = "apple_shop/owner.html"
+    success_url = reverse_lazy("apple_shop:index")
+
+
+class ProductUpdateView(UpdateView):
+    """
+    Класс-представление страницы "Владелец"
+    """
+    model = Product
+    form_class = ProductForm
+    template_name = "apple_shop/owner.html"
+    success_url = reverse_lazy("apple_shop:index")
+
+    def get_success_url(self):
+        """
+        Перенаправление на страницу товара
+        """
+        return reverse("apple_shop:product_detail", args=[self.kwargs.get("pk")])
+
+
+class ProductDeleteView(DeleteView):
+    """
+    Класс-представление страницы "Владелец"
+    """
+    model = Product
+    template_name = "apple_shop/product_confirm_delete.html"
     success_url = reverse_lazy("apple_shop:index")

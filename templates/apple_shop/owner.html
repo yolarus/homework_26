@@ -24,7 +24,11 @@
     <div class="row">
         <div class="col-2"></div>
         <div class="col-10">
+            {% if product %}
+            <p class="text-center">Здесь вы можете отредактировать товары интернет-магазина.</p>
+            {% else %}
             <p class="text-center">Здесь вы можете добавить новые товары в интернет-магазин.</p>
+            {% endif %}
         </div>
     </div>
     <div class="row">
@@ -34,7 +38,17 @@
                 <form action="#" method="post" enctype='multipart/form-data'>
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">Создать</button>
+                    {{ form.non_field_errors }}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-primary">
+                        {% if product %}
+                        Сохранить
+                        {% else %}
+                        Создать
+                        {% endif %}
+                        </button>
+                        <a href="{% url 'apple_shop:index' %}" class="btn btn-outline-secondary">Отменить</a>
+                    </div>
                 </form>
             </div>
         </div>
